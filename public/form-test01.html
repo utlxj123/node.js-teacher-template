@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="form1" onsubmit="senData(event)">
+        <input type="text" name="name" placeholder="姓名"><br>
+        <input type="text" name="age" placeholder="年齡"><br>
+        <input type="submit" >
+    </form>
+
+    <a href="https://tw.yahoo.com">yahoo 1</a><br>
+    <a href="https://tw.yahoo.com" onclick="sendAjax()">yahoo 2</a><br>
+    <a href="https://tw.yahoo.com" onclick="return false">yahoo 3</a><br>
+    <a href="https://tw.yahoo.com" onclick="event.preventDefault()">yahoo 4</a><br>
+    <a href="https://tw.yahoo.com" onclick="return confirm('要到雅虎嗎?')">yahoo 5</a><br>
+
+
+
+    <script>
+        function senData(e){
+            const {name, age} = document.form1;
+
+            console.log([name.value, age.value])
+        }
+
+        const sendAjax = ()=>{
+            console.log('sendAjax');
+        }
+
+    </script>
+</body>
+</html>

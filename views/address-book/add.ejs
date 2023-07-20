@@ -1,0 +1,127 @@
+<%- include('../parts/html-head') %> <%- include('../parts/navbar') %>
+<style>
+    form .mb-3 .form-text {
+        color: red;
+    }
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">新增資料</h5>
+
+          <form
+            name="form1"
+            method="post"
+            onsubmit="sendData(event)"
+            novalidate
+          >
+            <div class="mb-3">
+              <label for="name" class="form-label">name</label>
+              <input type="text" class="form-control" id="name" name="name" />
+              <div class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+              />
+              <div class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="mobile" class="form-label">mobile</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mobile"
+                name="mobile"
+              />
+              <div class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="birthday" class="form-label">birthday</label>
+              <input
+                type="date"
+                class="form-control"
+                id="birthday"
+                name="birthday"
+              />
+              <div class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">address</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">新增</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../parts/scripts') %>
+<script>
+    const fieldIds = ['name', 'email', 'mobile', 'birthday']
+
+
+    function showError(fieldId, errorMsg) {
+        const input = document.querySelector('#'+fieldId);
+        if(! input) return;
+        input.style.border = '1px solid red';
+        input.nextElementSibling.innerHTML = errorMsg;
+    }
+
+
+  function sendData(e) {
+    fieldIds.forEach(id=>{
+        const input = document.querySelector('#'+id);
+        input.style.border = '1px solid #CCCCCC';
+        input.nextElementSibling.innerHTML = ''; 
+    })
+
+
+    e.preventDefault();
+
+    // TODO: 各個欄位的檢查
+
+    const fd = new FormData(document.form1);
+    const usp = new URLSearchParams(fd);
+
+    fetch("", {
+      method: "POST",
+      body: usp.toString(),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+
+        if(data.success){
+            alert('資料新增成功')
+
+        } else {
+            for(let i in data.errors){
+                showError(i, data.errors[i])
+            }
+        }
+
+
+      })
+      .catch((ex) => console.log(ex));
+    }
+</script>
+
+<%- include('../parts/html-foot') %>

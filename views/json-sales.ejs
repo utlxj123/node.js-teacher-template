@@ -1,0 +1,46 @@
+<%- include('parts/html-head') %> <%- include('parts/navbar') %>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">編號</th>
+            <th scope="col">名字</th>
+            <th scope="col">年齡</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i of sales){ %>
+          <tr>
+            <td><%= i.id %></td>
+            <td><%= i.name %></td>
+            <td><%= i.age %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('parts/scripts') %> 
+<script>
+    const ar = [21, 12, 9, 56];
+
+    ar.sort(); // 預設的排序規則 (看成字串排序);
+
+    console.log(ar);
+
+    ar.sort((a, b)=>{
+        console.log({a, b});
+        return a-b;
+    });
+
+    console.log(ar);
+
+    document.querySelector('table').addEventListener('click', event=>{
+      console.log(event.target);
+      console.log(event.currentTarget);
+    });
+</script>
+<%- include('parts/html-foot') %>

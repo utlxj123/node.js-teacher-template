@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="form1" onsubmit="sendData(event)">
+        <input type="text" name="account" value="shin"><br>
+        <input type="text" name="phone" value="0918123456"><br>
+        <input type="text" name="phone" value="0935111222"><br>
+        <label for="">
+            <input type="checkbox" name="agree" value="yes">同意
+        </label>
+        <br>
+        <button>送出</button>
+    </form>
+
+    <script>
+        function sendData(e){
+            e.preventDefault();
+
+            const fd = new FormData(document.form1);
+
+            // 把 FormData 的物件轉換為 urlencoded 的字串
+            const usp = new URLSearchParams(fd);
+
+            console.log(usp.toString())
+
+        }
+
+
+        const usp2 = new URLSearchParams('?a=1&b=50&b=60&name=john');
+        console.log(usp2.get('a'))
+        console.log(usp2.get('b'))
+        console.log(usp2.getAll('b'))
+        console.log(usp2.get('name'))
+        console.log('--------------------------')
+        const usp3 = new URLSearchParams({name:'david', age:26});
+        console.log(usp3.toString())
+        console.log(usp3.get('name'))
+        console.log(usp3.get('age'))
+        console.log('--------------------------')
+        console.log([...usp3])
+    </script>
+
+
+</body>
+</html>

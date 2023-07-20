@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 上傳圖片的按鈕 -->
+    <button onclick="photos.click()">上傳圖片</button>
+    <!-- 顯示資訊的元素 -->
+    <pre id="info"></pre>
+
+<!-- 隱藏的表單 -->
+<form name="form1" hidden>
+    <!-- 用於選擇圖片的輸入欄位 -->
+    <input type="file" name="photos" accept="image/*" multiple />
+  </form>
+  
+  <script>
+    // 取得表單和圖片輸入欄位的參考
+    const form1 = document.form1;
+    const photos = document.form1.photos;
+  
+    // 監聽圖片輸入欄位的變動事件
+    photos.addEventListener("change", (event) => {
+      // 建立一個 FormData 物件來包裝表單資料
+      const fd = new FormData(form1);
+  
+      // 使用 fetch API 發送 POST 請求
+      fetch("/try-uploads", {
+        method: "POST",
+        body: fd,
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          // 將回傳的資料以 JSON 格式顯示在 info 元素上
+          info.innerHTML = JSON.stringify(data, null, 4);
+        })
+        .catch((ex) => console.log(ex));
+    });
+  </script>
+</html>

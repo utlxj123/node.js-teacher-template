@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/try-post" method="post">
+      <button type="button" onclick="addItem()">新增項目</button>
+      <div class="container">
+        <div class="item">
+          <input type="text" name="account" placeholder="account" />
+          <br />
+          <input type="password" name="password" placeholder="password" />
+        </div>
+      </div>
+
+      <input type="submit" />
+    </form>
+
+    <script src="/jquery/jquery.min.js"></script>
+    <script>
+      const container = $(".container");
+      const tpl = ()=>`
+      <div class="item">
+          <input type="text" name="account" value="${Math.random()}"/>
+          <br />
+          <input type="password" name="password" value="${Math.random()}" />
+
+          <button type="button" onclick="removeItem(event)">移除項目</button>
+        </div>
+        `;
+
+        function addItem(){
+            container.append(tpl());
+        }
+        function removeItem(event){
+            event.currentTarget.closest('.item').remove();
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .item {
+            width: 200px;
+        }
+        .item img {
+            width: 100%;
+        }
+
+
+    </style>
+  </head>
+  <body>
+    <button onclick="photos.click()">上傳圖片</button>
+    <div id="info" style="display: flex;">
+        <div class="item">
+            <img src="/img/3a469030-248e-4475-a9ea-9e0bc40ef337.png" alt="">
+        </div>
+    </div>
+
+    <form name="form1" hidden>
+      <input type="file" name="photos" accept="image/*" multiple />
+    </form>
+
+    <script src="/jquery/jquery.min.js"></script>
+    <script>
+      const info = $('#info');
+      const form1 = document.form1;
+      const photos = document.form1.photos;
+
+      photos.addEventListener("change", (event) => {
+        const fd = new FormData(form1);
+
+        fetch("/try-uploads", {
+          method: "POST",
+          body: fd,
+        })
+          .then((r) => r.json())
+          .then((data) => {
+            console.log(data);
+            // info.innerHTML = JSON.stringify(data, null, 4);
+            for(let i of data){
+                info.append(imgUnit(i));
+
+            }
+          })
+          .catch((ex) => console.log(ex));
+      });
+
+
+      const imgUnit = ({filename}) =>{
+
+        return `
+        <div class="item">
+            <img src="/img/${filename}" alt="">
+        </div>
+        `
+      }
+    </script>
+  </body>
+</html>

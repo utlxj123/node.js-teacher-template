@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        const re1 = /\d\d/; // pattern
+        const re2 = /^\d\d/;
+        const re3 = /^\d\d$/;
+
+        const str1 = 'A12';
+        const str2 = 'AB2';
+        const str3 = '34D';
+
+        console.log( re1.test(str1) ); // true
+        console.log( re1.test(str2) ); // false
+        console.log( re1.test(str3) ); // true
+
+    </script>
+</body>
+</html>

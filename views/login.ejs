@@ -1,0 +1,59 @@
+<%- include('parts/html-head') %> <%- include('parts/navbar') %>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">會員登入</h5>
+
+          <form name="form1" method="post" onsubmit="sendData(event)">
+            <div class="mb-3">
+              <label for="account" class="form-label">帳號</label>
+              <input
+                type="text"
+                class="form-control"
+                id="account"
+                name="account"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">密碼</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">登入</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('parts/scripts') %>
+<script>
+  function sendData(e) {
+    e.preventDefault(); // 不要讓表單以傳統的方式送出
+
+    const fd = new FormData(document.form1);
+
+    fetch("", {
+      method: "POST",
+      body: fd,
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        if(data.success){
+            location.href = '/';
+        } else {
+            alert(data.msg);
+        }
+      })
+      .catch((ex) => console.log(ex));
+  }
+</script>
+<%- include('parts/html-foot') %>

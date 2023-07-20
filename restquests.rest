@@ -1,0 +1,23 @@
+
+
+GET http://localhost:3002/try-qs?name=小新&age=30
+
+### 分隔線
+POST http://localhost:3002/try-post
+Content-Type: application/x-www-form-urlencoded
+
+name=小新&age=25&data=abc
+
+### 分隔線
+POST http://localhost:3002/try-post
+Content-Type: application/json
+
+{
+    "email": "shin@gg.com",
+    "account": "hello"
+}
+
+
+### 分隔線
+GET https://tw.yahoo.com
+

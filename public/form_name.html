@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="info">123</div>
+    <div id="info">456</div>
+    <div id="info2">789</div>
+
+    <form name="form1">
+      <input type="text" name="field1_1" />
+      <input type="text" name="field1_2" />
+    </form>
+
+    <form name="form2">
+      <input type="text" name="field2_1" />
+      <input type="text" name="field2_2" />
+    </form>
+
+    <script>
+        // HTMLCollection
+        console.log(document.forms);
+
+        // HTMLCollection
+        console.log(info);
+        // Element
+        console.log(info2);
+        // NodeList
+        console.log(document.querySelectorAll('#info'))
+    </script>
+  </body>
+</html>

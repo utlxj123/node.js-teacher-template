@@ -1,0 +1,33 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p = new Promise((resolve, reject)=>{
+            // 模擬非同步
+            setTimeout(()=>{
+                resolve('abc');  // 正常結束
+                // reject('eeeee');  // 發生錯誤
+            }, 1000);
+        });
+        console.log(1);
+        p.then(result=>{
+            console.log(2);
+            console.log({result});
+        }).catch(ex=>{
+            console.log(3);
+            console.log({ex});  
+        })
+
+        console.log(4);
+
+
+    </script>
+</body>
+</html>
+
+

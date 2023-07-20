@@ -1,0 +1,107 @@
+<%- include('../parts/html-head') %> <%- include('../parts/navbar') %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item <%= 1==page ? 'disabled' : '' %>">
+            <a class="page-link" href="?page=1">
+              <i class="fa-solid fa-angles-left"></i>
+            </a>
+          </li>
+          <li class="page-item <%= 1==page ? 'disabled' : '' %>">
+            <a class="page-link" href="?page=<%= page -1 %>">
+              <i class="fa-solid fa-angle-left"></i>
+            </a>
+          </li>
+
+          <% for(let i=page-5; i<=page+5; i++) if(i>=1 && i<=totalPages){ %>
+          <li class="page-item <%= i==page ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+          </li>
+          <% } %>
+          <li class="page-item <%= totalPages==page ? 'disabled' : '' %>">
+            <a class="page-link" href="?page=<%= page +1 %>">
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </li>
+          <li class="page-item <%= totalPages==page ? 'disabled' : '' %>">
+            <a class="page-link" href="?page=<%= totalPages %>">
+              <i class="fa-solid fa-angles-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
+            <th scope="col">#</th>
+            <th scope="col">姓名</th>
+            <th scope="col">手機</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">生日</th>
+            <th scope="col">地址</th>
+            <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let r of rows){ %>
+          <tr id="my<%= r.sid %>">
+            <td>
+              <a href="javascript: doDelete(<%= r.sid %>)">
+                <i class="fa-solid fa-trash-can"></i>
+              </a>
+            </td>
+            <td><%= r.sid %></td>
+            <td><%= r.name %></td>
+            <td><%= r.mobile %></td>
+            <td><%= r.email %></td>
+            <td><%= r.birthday %></td>
+            <td><%= r.address %></td>
+            <td>
+              <a href="/ab/edit/<%= r.sid %>">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('../parts/scripts') %>  
+<!-- 引入外部腳本文件 -->
+
+<script>
+  function doDelete(sid) {
+    const tr = $('#my'+sid); // 取得具有特定 ID 的元素
+    if(! tr.length) return; // 如果元素不存在，則返回
+
+    const name = tr.find('td').eq(2).text(); // 在元素中找到第三個 td 元素，並獲取其內容作為 name 變數
+    if(! confirm(`是否要刪除編號為 ${sid + ' ' + name}  的資料?`)){ // 顯示彈出對話框，詢問是否要刪除特定資料
+      return; // 如果用戶取消了操作，則返回
+    }
+
+    fetch(`/ab/delete/${sid}`, { // 使用 fetch 函式向指定的 URL 發送 DELETE 請求
+      method: "DELETE", // 指定請求方法為 DELETE
+    })
+      .then((r) => r.json()) // 解析回應內容為 JSON 格式
+      .then((data) => {
+        console.log(data); // 將回應資料輸出到控制台
+        // document.querySelector('#my'+sid).remove(); // 移除具有特定 ID 的元素
+        location.reload(); // 重新載入當前頁面
+      })
+      .catch((ex) => console.log(ex)); // 捕捉並輸出錯誤到控制台
+  }
+</script>
+
+<%- include('../parts/html-foot') %> 
+<!-- 引入 HTML 尾部的外部文件 -->
+

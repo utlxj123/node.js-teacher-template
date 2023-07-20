@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="info">123</div>
+    <script>
+        const info = document.querySelector('#info');
+        console.log(typeof info);
+        console.log(info instanceof Object);
+        console.log(info instanceof Node);
+        console.log(info instanceof Element);
+        console.log(info instanceof HTMLDivElement);
+        console.log(info.constructor.name); // 拿到的是字串
+    </script>
+</body>
+</html>
